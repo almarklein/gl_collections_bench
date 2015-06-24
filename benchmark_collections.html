@@ -3,8 +3,9 @@
     <meta charset="utf-8">
 </head>
 
-<script src="scripts/gloo2.js"></script>
+<script src="gloo2.js"></script>
 <script>
+
 
 function initialize_canvas(canvas_id) {
     var e = document.getElementById(canvas_id);
@@ -12,7 +13,7 @@ function initialize_canvas(canvas_id) {
     window.gl = gl;
     
     
-    var total = 100 * 1000;
+    var total = 1000 * 1000;
     var M = 500;
     var N = Math.floor(total / M);
     

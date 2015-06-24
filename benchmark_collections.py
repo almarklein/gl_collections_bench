@@ -8,7 +8,7 @@ class Canvas(app.Canvas):
         app.Canvas.__init__(self, show=True, size=(800, 400))
         
         total = 100 * 1000
-        M = 200
+        M = 500
         N = int(total / M)
         
         print('Drawing %ix%i points (%ik in total)' % (M, N, total/1000))
