@@ -22,7 +22,14 @@ measurements_10m['Chrome Linux (Nvidia)'] = {1:60, 10:60, 20:55, 30:53, 40:40, 5
 
 measurements_100k_buffer = OrderedDict()
 measurements_100k_buffer['Python Linux (Nvidia)'] = {1:2200, 10:770, 20:360, 40:142, 60:78, 80:48, 100:34, 200:10, 300:4.8, 400:2.8, 500:1.7}
+measurements_100k_buffer['Python Windows (Nvidia)'] = {1:1550, 10:678, 20:424, 40:244, 60:165, 80:125, 100:100, 200:44, 300:27, 400:18, 500:14}
+measurements_100k_buffer['Python Windows (Intel)'] = {1:1570, 10:660, 20:440, 40:244, 60:162, 80:125, 100:99, 200:46, 300:27, 400:19, 500:14}
 measurements_100k_buffer['Chrome Linux (Nvidia)'] = {1:60, 10:60, 20:60, 40:60, 60:57, 80:44, 100:35, 200:18, 300:13, 400:9, 500:9}
+measurements_100k_buffer['Chrome Windows (Nvidia)'] = {1:60, 10:60, 20:60, 40:60, 60:60, 80:60, 100:60, 200:32, 300:22, 400:17, 500:14}
+measurements_100k_buffer['Chrome Windows (Intel)'] = {1:60, 10:60, 20:60, 40:60, 60:60, 80:60, 100:60, 200:33, 300:22, 400:16, 500:13}
+
+
+
 
 def plot(title, data, colors, linestyles):
     f = vv.figure()
@@ -55,11 +62,11 @@ plot('100K vertices', measurements_100k, colors, linestyles)
 
 # Draw 10M
 colors = [(0.2, 0.4, 0.6), (0.8, 0.4, 0.0), (0.2, 0.6, 0.4),]
-linestyles = '-', '--', ':', '-', ':', '--'
+linestyles = '-', '--', ':'
 plot('10M vertices', measurements_10m, colors, linestyles)
 
 
 # Draw buffers
-colors = [(0.2, 0.4, 0.6), (0.8, 0.4, 0.0), (0.2, 0.6, 0.4),]
-linestyles = '-', '--', ':', '-', ':', '--'
+colors = [(0.2, 0.4, 0.6), (0.2, 0.4, 0.6), (0.2, 0.4, 0.6), (0.2, 0.6, 0.4), (0.2, 0.6, 0.4), (0.2, 0.6, 0.4),]
+linestyles = '-', '--', ':', '-', '--', ':'
 plot('multi-buffer (100K vertices)', measurements_100k_buffer, colors, linestyles)
