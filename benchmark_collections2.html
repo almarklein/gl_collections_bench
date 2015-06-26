@@ -27,16 +27,17 @@ function initialize_canvas(canvas_id) {
     }
         
     var draw = function () {
+        var vboxy
         gl.viewport(0, 0, e.width, e.height);
         gl.clearColor(1, 1, 0, 1);        
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.lineWidth(2);
         for (var i=0; i<M; i++) {
-            var vboxy = buffers[i]
+            vboxy = buffers[i]
+            prog.set_uniform('u_color', 'vec4', [0, 0, 0.5, 1])
             prog.set_attribute('a_x', 'float', [vboxy[0], 0, 0]);
             prog.set_attribute('a_y', 'float', [vboxy[1], 0, 0]);
-            prog.set_uniform('u_color', 'vec4', [0, 0, 0.5, 1]) 
-            prog.draw(gl.LINE_STRIP, [0, N]);            
+            prog.draw(gl.LINE_STRIP, [0, N]);
         }
     };
     return draw;
@@ -58,15 +59,12 @@ function create_program(gl) {
     VERT = 'precision mediump float;\
         attribute float a_x;\
         attribute float a_y;\
-        varying vec2 v_texcoord;\
         void main() {\
             vec2 pos = vec2(a_x, a_y);\
             gl_Position = vec4(pos*2.0-1.0, 0.0, 1.0);\
-            v_texcoord = pos;\
         }';
     FRAG = 'precision mediump float;\
         uniform vec4 u_color;\
-        varying vec2 v_texcoord;\
         void main() {\
             gl_FragColor = u_color;\
             gl_FragColor.a = 1.0;\
@@ -74,7 +72,7 @@ function create_program(gl) {
         
     var prog = new gloo2.Program(gl);
     prog.set_shaders(VERT, FRAG);
-    return prog;    
+    return prog;
 }
 
 function create_vbos(gl, n, range) {
