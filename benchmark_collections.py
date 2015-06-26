@@ -141,5 +141,6 @@ class CanvasHeavy(BaseCanvas):
 
 
 if __name__ == '__main__':
-    c = CanvasMultiBuffer()
+    #c = CanvasMultiBuffer()
+    c = CanvasMultiProgram()
     app.run()
