@@ -20,54 +20,46 @@ measurements_10m['Python Linux (Nvidia)'] = {1:85, 10:85, 20:85, 30:85, 40:85, 5
 measurements_10m['Firefox Linux (NVidia)'] = {1:40, 10:40, 20:40, 30:40, 40:40, 50:35, 60:35, 70:32, 80:32, 90:32, 100:30, 200:30, 300:30, 400:30, 500:30}
 measurements_10m['Chrome Linux (Nvidia)'] = {1:60, 10:60, 20:55, 30:53, 40:40, 50:35, 60:30, 70:30, 80:28, 90:24, 100:22, 200:13, 300:11, 400:9, 500:7}
 
+measurements_100k_buffer = OrderedDict()
+measurements_100k_buffer['Python Linux (Nvidia)'] = {1:2200, 10:770, 20:360, 40:142, 60:78, 80:48, 100:34, 200:10, 300:4.8, 400:2.8, 500:1.7}
+measurements_100k_buffer['Chrome Linux (Nvidia)'] = {1:60, 10:60, 20:60, 40:60, 60:57, 80:44, 100:35, 200:18, 300:13, 400:9, 500:9}
 
+def plot(title, data, colors, linestyles):
+    f = vv.figure()
+    f.Clear()
+    a = vv.gca()
+    vv.title(title)
+    
+    lw = 4
+    
+    
+    i = -1
+    for key, d in data.items():
+        i +=1 
+        mm = list(sorted(d))
+        vv.plot(mm, [d[k] for k in mm], lw=lw, lc=colors[i], ls=linestyles[i])
+    
+    a.SetLimits((0, 500), (0, 99))
+    a.axis.showGrid = True
+    a.axis.xLabel = 'Number of GL programs'
+    a.axis.yLabel = 'FPS'
+    f.relativeFontSize = 1.2
+    
+    vv.legend(*data.keys())
 
-
-f = vv.figure(1)
-f.Clear()
-a = vv.gca()
-vv.title('100K points')
-
-lw = 4
+# Draw 100K
 colors = [(0.2, 0.4, 0.6), (0.2, 0.4, 0.6), (0.2, 0.4, 0.6),  (0.8, 0.4, 0.0), (0.8, 0.4, 0.0), (0.8, 0.4, 0.0), (0.2, 0.6, 0.4), (0.2, 0.6, 0.4), (0.2, 0.6, 0.4)]
 linestyles = '-', '--', ':', '-', '--', ':', '-', '--', ':'
-
-i = -1
-for key, d in measurements_100k.items():
-    i +=1 
-    mm = list(sorted(d))
-    vv.plot(mm, [d[k] for k in mm], lw=lw, lc=colors[i], ls=linestyles[i])
-
-a.SetLimits((0, 500), (0, 99))
-a.axis.showGrid = True
-a.axis.xLabel = 'Number of GL programs'
-a.axis.yLabel = 'FPS'
-f.relativeFontSize = 1.2
-
-vv.legend(*measurements_100k.keys())
+plot('100K vertices', measurements_100k, colors, linestyles)
 
 
-##
-
-f = vv.figure(2)
-f.Clear()
-a = vv.gca()
-vv.title('10M points')
-
-lw = 4
+# Draw 10M
 colors = [(0.2, 0.4, 0.6), (0.8, 0.4, 0.0), (0.2, 0.6, 0.4),]
 linestyles = '-', '--', ':', '-', ':', '--'
+plot('10M vertices', measurements_10m, colors, linestyles)
 
-i = -1
-for key, d in measurements_10m.items():
-    i +=1 
-    mm = list(sorted(d))
-    vv.plot(mm, [d[k] for k in mm], lw=lw, lc=colors[i], ls=linestyles[i])
 
-a.SetLimits((0, 500), (0, 99))
-a.axis.showGrid = True
-a.axis.xLabel = 'Number of GL programs'
-a.axis.yLabel = 'FPS'
-f.relativeFontSize = 1.2
-
-vv.legend(*measurements_10m.keys())
+# Draw buffers
+colors = [(0.2, 0.4, 0.6), (0.8, 0.4, 0.0), (0.2, 0.6, 0.4),]
+linestyles = '-', '--', ':', '-', ':', '--'
+plot('multi-buffer (100K vertices)', measurements_100k_buffer, colors, linestyles)
