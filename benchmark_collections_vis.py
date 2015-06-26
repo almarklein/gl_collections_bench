@@ -43,12 +43,12 @@ def plot(title, data, colors, linestyles):
     for key, d in data.items():
         i +=1 
         mm = list(sorted(d))
-        vv.plot(mm, [d[k] for k in mm], lw=lw, lc=colors[i], ls=linestyles[i])
+        vv.plot(mm, [1/d[k] for k in mm], lw=lw, lc=colors[i], ls=linestyles[i])
     
-    a.SetLimits((0, 500), (0, 99))
+    a.SetLimits((0, 500), (0, 0.5))
     a.axis.showGrid = True
     a.axis.xLabel = 'Number of GL programs'
-    a.axis.yLabel = 'FPS'
+    a.axis.yLabel = 'Time per frame'
     f.relativeFontSize = 1.2
     
     vv.legend(*data.keys())
@@ -78,7 +78,7 @@ for key, d in measurements_100k.items():
         continue
     i +=1 
     mm = list(sorted(d))
-    vv.plot(mm, [d[k] for k in mm], lw=4, lc=colors[i], ls=linestyles[i], alpha=0.15, axesAdjust=False)
+    vv.plot(mm, [1/d[k] for k in mm], lw=4, lc=colors[i], ls=linestyles[i], alpha=0.15, axesAdjust=False)
 vv.xlabel('Number of GL buffers')
 
 # vv.screenshot('benchmark_collections_resultX.jpg', bg='w')
