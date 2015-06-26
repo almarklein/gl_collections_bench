@@ -79,6 +79,6 @@ for key, d in measurements_100k.items():
     i +=1 
     mm = list(sorted(d))
     vv.plot(mm, [d[k] for k in mm], lw=4, lc=colors[i], ls=linestyles[i], alpha=0.15, axesAdjust=False)
-
+vv.xlabel('Number of GL buffers')
 
 # vv.screenshot('benchmark_collections_resultX.jpg', bg='w')
