@@ -70,4 +70,15 @@ colors = [(0.2, 0.4, 0.6), (0.2, 0.4, 0.6), (0.2, 0.4, 0.6), (0.2, 0.6, 0.4), (0
 linestyles = '-', '--', ':', '-', '--', ':'
 plot('multi-buffer (100K vertices)', measurements_100k_buffer, colors, linestyles)
 
+# Draw ghosts
+colors = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 1, 0), (0, 1, 0), (0, 1, 0)]
+i = -1
+for key, d in measurements_100k.items():
+    if 'Firefox' in key:
+        continue
+    i +=1 
+    mm = list(sorted(d))
+    vv.plot(mm, [d[k] for k in mm], lw=4, lc=colors[i], ls=linestyles[i], alpha=0.15, axesAdjust=False)
+
+
 # vv.screenshot('benchmark_collections_resultX.jpg', bg='w')
